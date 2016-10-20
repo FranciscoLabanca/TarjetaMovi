@@ -6,4 +6,3 @@ class PaseLibre extends Tarjetas {
 		$this->descuento = 0;
 	}
 }
-?>

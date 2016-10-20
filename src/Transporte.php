@@ -8,4 +8,3 @@ class Transporte {
 		return $this->tipo;
 	}
 }
-?>

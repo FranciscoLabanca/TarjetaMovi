@@ -11,5 +11,3 @@ class Bicicleta extends Transporte {
 		return $this->patente;
 	}
 }
-
-?>

@@ -51,5 +51,3 @@ class Tarjetas implements Tarjeta{
  		return $this->viajes;
  	}
 }
-
-?>

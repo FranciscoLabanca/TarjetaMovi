@@ -22,6 +22,3 @@ class Viaje {
 		return $this->fecha_y_hora;
 	}
 }
-
-
-?>

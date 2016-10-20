@@ -7,5 +7,3 @@ class Medio extends Tarjetas {
 		$this->descuento = 0.5;
 	}	
 }
-
-?>

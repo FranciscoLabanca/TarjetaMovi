@@ -113,6 +113,3 @@ class TransporteTest extends TestCase {
 		$this->assertEquals($viajes, $this->tarjeta->viajes);
 	}
 }
-
-
-?>

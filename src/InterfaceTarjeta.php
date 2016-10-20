@@ -7,5 +7,3 @@ interface Tarjeta {
  	public function saldo();
  	public function viajesRealizados();
 }
-
-?>
