@@ -9,7 +9,7 @@
     },
     "autoload": {
             "psr-4": {
-            "TarjetaMovi\\": "src"
+                "TarjetaMovi\\": "src"
         }
     },
     "authors": [

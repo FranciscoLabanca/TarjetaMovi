@@ -1,5 +1,6 @@
 <?php
 namespace TarjetaMovi;
+
 	class Boleto {
 		public $fecha, $tipo, $saldo, $nro_linea, $id;
 		function __construct ($fecha, $tipo, $saldo, $nro_linea, $id){
@@ -28,4 +29,3 @@ namespace TarjetaMovi;
 			return $this->id;
 		}
 	}
-?>
