@@ -2,7 +2,7 @@
 namespace TarjetaMovi;
 
 class Colectivo extends Transporte {
-	public $nombre
+	public $nombre;
 	public $empresa;
 	function __construct ($nombre, $empresa){
 		$this->nombre = $nombre;
