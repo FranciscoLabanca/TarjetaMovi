@@ -38,7 +38,7 @@ class TransporteTest extends TestCase {
 
 		//Test Function Transporte
 		$transporte = $this->viaje->transporte();
-		$this->assertEquals($transporte, "131 Único");
+		$this->assertEquals($transporte, "Colectivo");
 
 		//Test Function Tiempo
 		$tiempo = $this->viaje->fecha_y_hora();
@@ -68,7 +68,7 @@ class TransporteTest extends TestCase {
 		//Test Function Saldo
 		$this->tarjeta->monto = 100;
 		$saldo_aux = $this->tarjeta->saldo();
-		$this->assertEquals($saldo_aux, $this->tarjeta->saldo);
+		$this->assertEquals($saldo_aux, $this->tarjeta->monto);
 
 		//Test Function Recargar
 		$this->tarjeta->saldo = 0;

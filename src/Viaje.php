@@ -16,7 +16,7 @@ class Viaje {
 		return $this->monto;
 	}
 	public function transporte () {
-		return $this->transporte;
+		return $this->transporte->tipo;
 	}
 	public function fecha_y_hora () {
 		return $this->fecha_y_hora;
