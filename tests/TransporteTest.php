@@ -11,8 +11,8 @@ class TransporteTest extends TestCase {
 
 	public function setUp() {
 		$this->transporte = new Transporte();
-		$this->viaje = new Viaje("Colectivo", 8.50, "131 Único", "19/10/16 19:07");
 		$this->colectivo = new Colectivo("131 Único", "Semtur");
+		$this->viaje = new Viaje("Colectivo", 8.50, $this->colectivo, "19/10/16 19:07");
 		$this->bicicleta = new Bicicleta("asd 123");
 		$this->tarjeta = new Tarjetas();
 		$this->medioBoleto = new Medio();
