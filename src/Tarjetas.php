@@ -9,11 +9,11 @@ class Tarjetas implements Tarjeta{
 		$this->descuento = 1;
 	}
 	public function pagar(Transporte $transporte, $fecha_y_hora){
-		if($this->monto < $this->valor && $plus < 2){
-			$plus++;
-			$this->viajes[] = new Viajes($transporte->tipo(), $plus, $transporte, strtotime($fecha_y_hora));
+		if($this->monto < $this->valor && $this->plus < 2){
+			$this->plus++;
+			$this->viajes[] = new Viajes($transporte->tipo(), $this->plus, $transporte, strtotime($fecha_y_hora));
 		}
-		else if ($this->monto < $this->valor && $plus == 2){
+		else if ($this->monto < $this->valor && $this->plus == 2){
 			echo "Saldo insuficiente";
 		}
 		else{
@@ -26,12 +26,12 @@ class Tarjetas implements Tarjeta{
 				}
 				$monto = 0;
 				if ($trasbordo) {
-					$monto = round(($this->valor * 0.33), 2) * $this->descuento + $this->valor * $plus;
-					$plus = 0;
+					$monto = round(($this->valor * 0.33), 2) * $this->descuento + $this->valor * $this->plus;
+					$this->plus = 0;
 				}
 				else {
-					$monto = $this->valor * $this->descuento + $this->valor * $plus;
-					$plus = 0;
+					$monto = $this->valor * $this->descuento + $this->valor * $this->plus;
+					$this->plus = 0;
 				}
 				$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
 				$this->monto -= $monto;

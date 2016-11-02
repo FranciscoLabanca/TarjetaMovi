@@ -31,7 +31,7 @@ class TransporteTest extends TestCase {
 
 		//Test Function Monto
 		$monto = $this->viaje->monto();
-		$this->assertEquals($monto, $this->$valor_boleto);
+		$this->assertEquals($monto, $this->valor_boleto);
 
 		//Test Function Transporte
 		$transporte = $this->viaje->transporte();
