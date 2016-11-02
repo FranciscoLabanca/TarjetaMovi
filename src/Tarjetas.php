@@ -14,7 +14,7 @@ class Tarjetas implements Tarjeta{
 			$this->viajes[] = new Viaje($transporte->tipo(), $this->plus, $transporte, strtotime($fecha_y_hora));
 		}
 		else if ($this->monto < $this->valor && $this->plus == 2){
-			echo "Saldo insuficiente";
+			return "Saldo insuficiente";
 		}
 		else{
 			if ($transporte->tipo() == "Colectivo") {
