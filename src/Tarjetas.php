@@ -2,15 +2,14 @@
 namespace TarjetaMovi;
 
 class Tarjetas implements Tarjeta{
-	public $monto, $viajes = [], $descuento, $plus = 0;
+	public $monto, $viajes = [], $descuento, $plus = 0, $valor = 8.50;
 
 	function __construct (){
 		$this->monto = 0;
 		$this->descuento = 1;
 	}
 	public function pagar(Transporte $transporte, $fecha_y_hora){
-		$valor = 8.50;
-		if($this->monto < $valor && $plus<2){
+		if($this->monto < $valor && $plus < 2){
 			$plus++;
 			$this->viajes[] = new Viajes($transporte->tipo(), $plus, $transporte, strtotime($fecha_y_hora));
 		}
@@ -21,7 +20,7 @@ class Tarjetas implements Tarjeta{
 			if ($transporte->tipo() == "Colectivo") {
 				$trasbordo = false;
 				if (count($this->viajes) > 0) {
-					if (end($this->viajes)->tiempo() - strtotime($fechaHora) < 3600) {
+					if (end($this->viajes)->tiempo() - strtotime($fecha_y_hora) < 3600) {
 						$trasbordo = true;
 					}
 				}
@@ -38,7 +37,7 @@ class Tarjetas implements Tarjeta{
 				$this->monto -= $monto;
 			} 
 			else if ($transporte->tipo() == "Bicicleta") {
-				$this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fechaHora));
+				$this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
 				$this->monto -= 12;
 			}
 		}
