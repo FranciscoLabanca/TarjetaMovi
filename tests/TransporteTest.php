@@ -11,7 +11,7 @@ class TransporteTest extends TestCase {
 		$this->colectivo = new Colectivo("131 Único", "Semtur");
 		$this->viaje = new Viaje("Colectivo", 8.50, $this->colectivo, "2016/10/19 19:07");
 		$this->bicicleta = new Bicicleta("asd 123");
-		$this->tarjeta = new Tarjetas();
+		$this->tarjeta = new Tarjetas("123123123");
 		$this->medioBoleto = new Medio();
 		$this->paseLibre = new PaseLibre();
 		$this->boleto = new Boleto("2016/10/19 19:07", 1, 91.5, "131 Único", "15945652");
@@ -26,19 +26,19 @@ class TransporteTest extends TestCase {
 
 	//Test Class Viaje
 	public function testViaje() {
-		//Test Function Tipo
+		//Test Función Tipo
 		$tipo = $this->viaje->tipo();
 		$this->assertEquals($tipo, "Colectivo");
 
-		//Test Function Monto
+		//Test Función Monto
 		$monto = $this->viaje->monto();
 		$this->assertEquals($monto, $this->valor_boleto);
 
-		//Test Function Transporte
+		//Test Función Transporte
 		$transporte = $this->viaje->transporte();
 		$this->assertEquals($transporte, "Colectivo");
 
-		//Test Function Tiempo
+		//Test Función Tiempo
 		$tiempo = $this->viaje->fecha_y_hora();
 		$this->assertEquals($tiempo, "2016/10/19 19:07");
 	}
@@ -63,12 +63,12 @@ class TransporteTest extends TestCase {
 
 	//Test Class Tarjeta
 	public function testTarjetas() {
-		//Test Function Saldo
+		//Test Función Saldo
 		$this->tarjeta->monto = 100;
 		$saldo_aux = $this->tarjeta->saldo();
 		$this->assertEquals($saldo_aux, $this->tarjeta->monto);
 
-		//Test Function Recargar
+		//Test Función Recargar
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->recargar(280);
 		$this->assertEquals($this->tarjeta->monto, 328);
@@ -81,43 +81,59 @@ class TransporteTest extends TestCase {
 		$this->tarjeta->recargar(100);
 		$this->assertEquals($this->tarjeta->monto, 100);
 
-		//Test Function Pagar (Con tarjeta comun) -> Colectivo
+		//Test Función Pagar (Con tarjeta comun) -> Colectivo
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($this->colectivo, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial - 8.50;
 		$this->assertEquals($saldo_final, $this->tarjeta->monto);
 
-		//Test Function Pagar (Trasbordo) -> Colectivo
+		//Test Función Pagar (Trasbordo) -> Colectivo
 		$trasbordo = new Colectivo("142 Rojo", "Rosario Bus");
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, "2016/09/13 16:10");
 		$saldo_final = $saldo_inicial - 2.81;
 		$this->assertEquals($saldo_final, $this->tarjeta->monto);
 
-		//Test Function Pagar (Con medio boleto) -> Colectivo
+		//Test Función Pagar (Con medio boleto) -> Colectivo
 		$this->medioBoleto->recargar(290);
 		$saldo_inicial = $this->medioBoleto->saldo();
 		$this->medioBoleto->pagar($this->colectivo, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial - 4.25;
 		$this->assertEquals($saldo_final, $this->medioBoleto->monto);
 
-		//Test Function Pagar (Con pase libre) -> Colectivo
+		//Test Función Pagar (Con pase libre) -> Colectivo
 		$saldo_inicial = $this->paseLibre->saldo();
 		$this->paseLibre->pagar($this->colectivo, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial;
 		$this->assertEquals($saldo_final, $this->paseLibre->monto);
 
-		//Test Function Pagar -> Bicicleta
+		//Test Función Pagar -> Bicicleta
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($this->bicicleta, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial - 12;
 		$this->assertEquals($saldo_final, $this->tarjeta->monto);
 
-		//Test Function ViajesRealizados 
+		//Test Función ViajesRealizados 
 		$this->tarjeta->viajes = 3;
 		$viajes = $this->tarjeta->viajesRealizados();
 		$this->assertEquals($viajes, $this->tarjeta->viajes);
-		
+
+		//Test Función Primer Pasaje Plus
+		$this->tarjeta->monto = 0;
+		$this->tarjeta->pagar();
+		$plus = 1
+		$this->assertEquals($plus, $this->tarjeta->plus);
+
+		//Test Función 2do Pasaje Plus
+		$this->tarjeta->monto = 0;
+		$this->tarjeta->pagar();
+		$plus = 2
+		$this->assertEquals($plus, $this->tarjeta->plus);
+
+		//Test Función 2do Pasaje Plus y sin saldo para pagarlos
+		$this->tarjeta->monto = 0;
+		$this->tarjeta->pagar();
+		$this->assertEquals("Saldo insuficiente", $this->tarjeta->plus);
 	}
 	//Test Class Boleto
 	public function testBoleto () {

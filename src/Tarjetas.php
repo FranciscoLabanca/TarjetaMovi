@@ -2,16 +2,23 @@
 namespace TarjetaMovi;
 
 class Tarjetas implements Tarjeta{
-	public $monto, $viajes = [], $descuento, $plus = 0, $valor_boleto = 8.50, $valor_bici = 12;
+	public $monto, $viajes = [], $descuento, $plus = 0, $valor_boleto = 8.50, $valor_bici = 12, $id;
 
-	function __construct (){
+	function __construct ($id){
 		$this->monto = 0;
 		$this->descuento = 1;
+		$this->id = $id;
 	}
 	public function pagar(Transporte $transporte, $fecha_y_hora){
 		if($this->monto < $this->valor_boleto && $this->plus < 2){
 			$this->plus++;
-			$this->viajes[] = new Viaje($transporte->tipo(), $this->plus, $transporte, strtotime($fecha_y_hora));
+			$this->viajes[] = new Viaje($transporte->tipo(), $this->monto, $transporte, strtotime($fecha_y_hora));
+			if($this->plus == 1){
+				$boleto = new Boleto ($fecha_y_hora, "Plus", $this->monto, $transporte->nombre, $this->id);
+			}
+			else{
+				$boleto = new Boleto ($fecha_y_hora, "Ultimo Plus", $this->monto, $transporte->nombre, $this->id);
+			}
 		}
 		else if ($this->monto < $this->valor_boleto && $this->plus == 2){
 			return "Saldo insuficiente";
