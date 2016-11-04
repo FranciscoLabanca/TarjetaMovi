@@ -50,8 +50,8 @@ class Tarjetas implements Tarjeta{
 				$this->monto -= $monto;
 			} 
 			else if ($transporte->tipo() == "Bicicleta") {
-				$this->viajes[] = new Viaje($transporte->tipo(), $valor_bici, $transporte, strtotime($fecha_y_hora));
-				$this->monto -= $valor_bici;
+				$this->viajes[] = new Viaje($transporte->tipo(), $this->valor_bici, $transporte, strtotime($fecha_y_hora));
+				$this->monto -= $this->valor_bici;
 			}
 		}
 	}
