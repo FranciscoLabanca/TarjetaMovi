@@ -121,7 +121,7 @@ class TransporteTest extends TestCase {
 		//Test Función Primer Pasaje Plus
 		$bondi1 = new Colectivo("131 Único", "Semtur");
 		$fecha1 = "2016/10/04 10:00";
-		$this->tarjeta->monto = 0;
+		$this->tarjeta->monto = 7;
 		$this->tarjeta->pagar($bondi1, $fecha1);
 		$plus = 1;
 		$this->assertEquals($plus, $this->tarjeta->plus);
