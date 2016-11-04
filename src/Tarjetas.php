@@ -12,8 +12,8 @@ class Tarjetas implements Tarjeta{
 	public function pagar(Transporte $transporte, $fecha_y_hora){
 		if($this->monto < $this->valor_boleto && $this->plus < 2){
 			$this->plus++;
-			$monto [0] = $this->monto;
-			$this->viajes[] = new Viaje($transporte->tipo(), $monto[0], $transporte, strtotime($fecha_y_hora));
+			//$monto [0] = $this->monto;
+			//$this->viajes[] = new Viaje($transporte->tipo(), $monto[0], $transporte, strtotime($fecha_y_hora));
 			if($this->plus == 1){
 				$boleto = new Boleto ($fecha_y_hora, "Plus", $this->monto, $transporte->nombre, $this->id);
 			}
