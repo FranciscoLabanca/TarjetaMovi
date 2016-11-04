@@ -138,8 +138,8 @@ class TransporteTest extends TestCase {
 		$bondi3 = new Colectivo("115 Único", "Semtur");
 		$fecha3 = "2016/10/04 14:00";
 		$this->tarjeta->monto = 0;
-		$this->tarjeta->pagar($bondi3, $fecha3);
-		$this->assertEquals("Saldo insuficiente", $this->tarjeta->plus);
+		$retorno = $this->tarjeta->pagar($bondi3, $fecha3);
+		$this->assertEquals("Saldo insuficiente", $retorno);
 	}
 	//Test Class Boleto
 	public function testBoleto () {
