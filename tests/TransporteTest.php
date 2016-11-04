@@ -9,12 +9,12 @@ class TransporteTest extends TestCase {
 	public function setUp() {
 		$this->transporte = new Transporte();
 		$this->colectivo = new Colectivo("131 Único", "Semtur");
-		$this->viaje = new Viaje("Colectivo", 8.50, $this->colectivo, "19/10/16 19:07");
+		$this->viaje = new Viaje("Colectivo", 8.50, $this->colectivo, "2016/10/19 19:07");
 		$this->bicicleta = new Bicicleta("asd 123");
 		$this->tarjeta = new Tarjetas();
 		$this->medioBoleto = new Medio();
 		$this->paseLibre = new PaseLibre();
-		$this->boleto = new Boleto("19/10/16 19:07", 1, 91.5, "131 Único", "15945652");
+		$this->boleto = new Boleto("2016/10/19 19:07", 1, 91.5, "131 Único", "15945652");
 	}
 
 	//Test Class Transporte
@@ -40,7 +40,7 @@ class TransporteTest extends TestCase {
 
 		//Test Function Tiempo
 		$tiempo = $this->viaje->fecha_y_hora();
-		$this->assertEquals($tiempo, "19/10/16 19:07");
+		$this->assertEquals($tiempo, "2016/10/19 19:07");
 	}
 
 	//Test Class Colectivo

@@ -2,43 +2,56 @@
 namespace TarjetaMovi;
 
 class Tarjetas implements Tarjeta{
-	public $monto, $viajes = [], $descuento, $plus = 0, $valor = 8.50;
+	public $monto, $viajes = [], $descuento, $plus = 0, $valor_boleto = 8.50, $valor_bici = 12;
 
 	function __construct (){
 		$this->monto = 0;
 		$this->descuento = 1;
 	}
 	public function pagar(Transporte $transporte, $fecha_y_hora){
-		if($this->monto < $this->valor && $this->plus < 2){
+		if($this->monto < $this->valor_boleto && $this->plus < 2){
 			$this->plus++;
 			$this->viajes[] = new Viaje($transporte->tipo(), $this->plus, $transporte, strtotime($fecha_y_hora));
 		}
-		else if ($this->monto < $this->valor && $this->plus == 2){
+		else if ($this->monto < $this->valor_boleto && $this->plus == 2){
 			return "Saldo insuficiente";
 		}
 		else{
 			if ($transporte->tipo() == "Colectivo") {
 				$trasbordo = false;
 				if (count($this->viajes) > 0) {
-					if (end($this->viajes)->fecha_y_hora() - strtotime($fecha_y_hora) < 3600) {
+					$ultViaje = end($this->viajes)->fecha_y_hora();
+					if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) > 0 && date("N",$ultViaje) < 5 && date("G",$ultViaje) >= 6 && date("N",$ultViaje) <= 22) {
+						$trasbordo = true;
+					}
+					if (end($this->viajes)->fecha_y_hora() - strtotime($ultViaje) < 3600 && date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("N",$ultViaje)<=14) {
+						$trasbordo = true;
+					}
+					if ($ultViaje - strtotime($fecha_y_hora) < 5400 && date("G",$ultViaje) >= 22 && date("G",$ultViaje) <= 6){
+						$trasbordo = true;
+					}
+					if ($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 6 && date("G", $ultViaje) >= 14 && date("G", $ultViaje)<= 22){
+						$trasbordo = true;
+					}
+					if($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 7 && date("G",$ultViaje) >= 6 && date("N",$ultViaje) <= 22){
 						$trasbordo = true;
 					}
 				}
 				$monto = 0;
 				if ($trasbordo) {
-					$monto = round(($this->valor * 0.33), 2) * $this->descuento + $this->valor * $this->plus;
+					$monto = round(($this->valor_boleto * 0.33), 2) * $this->descuento + $this->valor_boleto * $this->plus;
 					$this->plus = 0;
 				}
 				else {
-					$monto = $this->valor * $this->descuento + $this->valor * $this->plus;
+					$monto = $this->valor_boleto * $this->descuento + $this->valor_boleto * $this->plus;
 					$this->plus = 0;
 				}
 				$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
 				$this->monto -= $monto;
 			} 
 			else if ($transporte->tipo() == "Bicicleta") {
-				$this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
-				$this->monto -= 12;
+				$this->viajes[] = new Viaje($transporte->tipo(), $valor_bici, $transporte, strtotime($fecha_y_hora));
+				$this->monto -= $valor_bici;
 			}
 		}
 	}
