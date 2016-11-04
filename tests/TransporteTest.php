@@ -119,20 +119,26 @@ class TransporteTest extends TestCase {
 		$this->assertEquals($viajes, $this->tarjeta->viajes);
 
 		//Test Función Primer Pasaje Plus
+		$bondi1 = new Colectivo("131 Único", "Semtur");
+		$fecha1 = "2016/10/04 10:00";
 		$this->tarjeta->monto = 0;
-		$this->tarjeta->pagar();
+		$this->tarjeta->pagar($bondi1, $fecha1);
 		$plus = 1;
 		$this->assertEquals($plus, $this->tarjeta->plus);
 
 		//Test Función 2do Pasaje Plus
+		$bondi2 = new Colectivo("132 Único", "Semtur");
+		$fecha2 = "2016/10/04 12:00";
 		$this->tarjeta->monto = 0;
-		$this->tarjeta->pagar();
+		$this->tarjeta->pagar($bondi2, $fecha2);
 		$plus = 2;
 		$this->assertEquals($plus, $this->tarjeta->plus);
 
 		//Test Función 2do Pasaje Plus y sin saldo para pagarlos
+		$bondi3 = new Colectivo("115 Único", "Semtur");
+		$fecha3 = "2016/10/04 14:00";
 		$this->tarjeta->monto = 0;
-		$this->tarjeta->pagar();
+		$this->tarjeta->pagar($bondi3, $fecha3);
 		$this->assertEquals("Saldo insuficiente", $this->tarjeta->plus);
 	}
 	//Test Class Boleto
