@@ -4,12 +4,12 @@ namespace TarjetaMovi;
 use PHPUnit\Framework\TestCase;
 
 class TransporteTest extends TestCase {
-	public $transporte, $viaje = [], $colectivo, $bicicleta, $tarjeta, $medioBoleto, $paseLibre, $valor_boleto = 8.50, $boleto;
+	public $transporte, $viaje, $colectivo, $bicicleta, $tarjeta, $medioBoleto, $paseLibre, $valor_boleto = 8.50, $boleto;
 
 	public function setUp() {
 		$this->transporte = new Transporte();
 		$this->colectivo = new Colectivo("131 Único", "Semtur");
-		$this->viaje [] = new Viaje("Colectivo", 8.50, $this->colectivo, "2016/10/19 19:07");
+		$this->viaje = new Viaje("Colectivo", 8.50, $this->colectivo, "2016/10/19 19:07");
 		$this->bicicleta = new Bicicleta("asd 123");
 		$this->tarjeta = new Tarjetas("123123123");
 		$this->medioBoleto = new Medio();
