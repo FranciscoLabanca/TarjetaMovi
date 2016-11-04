@@ -121,13 +121,13 @@ class TransporteTest extends TestCase {
 		//Test Función Primer Pasaje Plus
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->pagar();
-		$plus = 1
+		$plus = 1;
 		$this->assertEquals($plus, $this->tarjeta->plus);
 
 		//Test Función 2do Pasaje Plus
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->pagar();
-		$plus = 2
+		$plus = 2;
 		$this->assertEquals($plus, $this->tarjeta->plus);
 
 		//Test Función 2do Pasaje Plus y sin saldo para pagarlos
