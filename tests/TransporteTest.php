@@ -92,7 +92,7 @@ class TransporteTest extends TestCase {
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, "2016/09/13 16:10");
 		$saldo_final = $saldo_inicial - 2.81;
-		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo(), "Saldo final " . $saldo_final . " saldo tarjeta " . $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Sábado después de las 6 hs y antes de las 14 hs
 		$sabado1 = "2016/10/01 8:00";
