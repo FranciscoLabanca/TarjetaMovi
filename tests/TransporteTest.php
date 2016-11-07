@@ -66,33 +66,33 @@ class TransporteTest extends TestCase {
 		//Test Función Saldo
 		$this->tarjeta->monto = 100;
 		$saldo_aux = $this->tarjeta->saldo();
-		$this->assertEquals($saldo_aux, $this->tarjeta->monto);
+		$this->assertEquals($saldo_aux, $this->tarjeta->saldo();
 
 		//Test Función Recargar
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->recargar(280);
-		$this->assertEquals($this->tarjeta->monto, 328);
+		$this->assertEquals($this->tarjeta->saldo(), 328);
 
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->recargar(600);
-		$this->assertEquals($this->tarjeta->monto, 740);
+		$this->assertEquals($this->tarjeta->saldo(), 740);
 
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->recargar(100);
-		$this->assertEquals($this->tarjeta->monto, 100);
+		$this->assertEquals($this->tarjeta->saldo(), 100);
 
 		//Test Función Pagar (Con tarjeta comun) -> Colectivo
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($this->colectivo, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial - 8.50;
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar (Trasbordo) -> Colectivo
 		$trasbordo = new Colectivo("142 Rojo", "Rosario Bus");
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, "2016/09/13 16:10");
 		$saldo_final = $saldo_inicial - 2.81;
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Sábado después de las 6 hs y antes de las 14 hs
 		$sabado1 = "2016/09/03 8:00";
@@ -102,7 +102,7 @@ class TransporteTest extends TestCase {
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
 		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Turno Noche
 		$noche1 = "2016/11/01 23:00";
@@ -112,7 +112,7 @@ class TransporteTest extends TestCase {
 		$this->tarjeta->pagar($trasbordo, $noche1);
 		$this->tarjeta->pagar($this->colectivo, $noche2);
 		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Sábado después de las 14 hs y antes de las 22 hs
 		$sabado1 = "2016/09/03 15:00";
@@ -122,7 +122,7 @@ class TransporteTest extends TestCase {
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
 		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Domingo después de las 6 hs y antes de las 22 hs
 		$domingo1 = "2016/09/04 15:00";
@@ -132,7 +132,7 @@ class TransporteTest extends TestCase {
 		$this->tarjeta->pagar($trasbordo, $domingo1);
 		$this->tarjeta->pagar($this->colectivo, $domingo2);
 		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 
 		//Test Función Pagar (Con medio boleto) -> Colectivo
@@ -140,19 +140,19 @@ class TransporteTest extends TestCase {
 		$saldo_inicial = $this->medioBoleto->saldo();
 		$this->medioBoleto->pagar($this->colectivo, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial - 4.25;
-		$this->assertEquals($saldo_final, $this->medioBoleto->monto);
+		$this->assertEquals($saldo_final, $this->medioBoleto->saldo());
 
 		//Test Función Pagar (Con pase libre) -> Colectivo
 		$saldo_inicial = $this->paseLibre->saldo();
 		$this->paseLibre->pagar($this->colectivo, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial;
-		$this->assertEquals($saldo_final, $this->paseLibre->monto);
+		$this->assertEquals($saldo_final, $this->paseLibre->saldo());
 
 		//Test Función Pagar -> Bicicleta
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($this->bicicleta, "2016/09/13 15:50");
 		$saldo_final = $saldo_inicial - 12;
-		$this->assertEquals($saldo_final, $this->tarjeta->monto);
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función ViajesRealizados 
 		$this->tarjeta->viajes = 3;
