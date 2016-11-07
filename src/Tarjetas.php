@@ -49,13 +49,15 @@ class Tarjetas implements Tarjeta{
 				if ($trasbordo) {
 					$monto = round(($this->valor_boleto * 0.33), 2) * $this->descuento + $this->valor_boleto * $this->plus;
 					$this->plus = 0;
+					$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+					$this->monto -= $monto;
 				}
 				else {
 					$monto = $this->valor_boleto * $this->descuento + $this->valor_boleto * $this->plus;
 					$this->plus = 0;
+					$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+					$this->monto -= $monto;
 				}
-				$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
-				$this->monto -= $monto;
 			} 
 			else if ($transporte->tipo() == "Bicicleta") {
 				$this->viajes[] = new Viaje($transporte->tipo(), $this->valor_bici, $transporte, strtotime($fecha_y_hora));

@@ -97,7 +97,6 @@ class TransporteTest extends TestCase {
 		//Test Función Pagar Trasbordo Sábado después de las 6 hs y antes de las 14 hs
 		$sabado1 = "2016/10/01 8:00";
 		$sabado2 = "2016/10/01 8:30";
-		$this->tarjeta->recargar(100);
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
@@ -108,7 +107,6 @@ class TransporteTest extends TestCase {
 		//Test Función Pagar Trasbordo Sábado después de las 14 hs y antes de las 22 hs
 		$sabado1 = "2016/10/01 15:00";
 		$sabado2 = "2016/10/01 16:10";
-		$this->tarjeta->recargar(100);
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
@@ -118,7 +116,6 @@ class TransporteTest extends TestCase {
 		//Test Función Pagar Trasbordo Turno Noche
 		$noche1 = "2016/11/03 22:10";
 		$noche2 = "2016/11/03 23:20";
-		$this->tarjeta->recargar(100);
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $noche1);
 		$this->tarjeta->pagar($this->colectivo, $noche2);
@@ -128,7 +125,6 @@ class TransporteTest extends TestCase {
 		//Test Función Pagar Trasbordo Domingo después de las 6 hs y antes de las 22 hs
 		$domingo1 = "2016/10/06 15:00";
 		$domingo2 = "2016/10/06 16:10";
-		$this->tarjeta->recargar(100);
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $domingo1);
 		$this->tarjeta->pagar($this->colectivo, $domingo2);
