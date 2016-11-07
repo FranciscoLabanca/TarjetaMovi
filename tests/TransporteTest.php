@@ -105,8 +105,8 @@ class TransporteTest extends TestCase {
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Turno Noche
-		$noche1 = "2016/11/01 23:00";
-		$noche2 = "2016/11/02 0:20";
+		$noche1 = "2016/11/02 01:00";
+		$noche2 = "2016/11/02 02:10";
 		$this->tarjeta->monto = 100;
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $noche1);
