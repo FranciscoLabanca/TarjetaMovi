@@ -66,7 +66,7 @@ class TransporteTest extends TestCase {
 		//Test Función Saldo
 		$this->tarjeta->monto = 100;
 		$saldo_aux = $this->tarjeta->saldo();
-		$this->assertEquals($saldo_aux, $this->tarjeta->saldo();
+		$this->assertEquals($saldo_aux, $this->tarjeta->saldo());
 
 		//Test Función Recargar
 		$this->tarjeta->monto = 0;
