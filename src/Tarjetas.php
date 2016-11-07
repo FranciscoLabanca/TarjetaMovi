@@ -32,7 +32,7 @@ class Tarjetas implements Tarjeta{
 					if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) > 0 && date("N",$ultViaje) < 5 && date("G",$ultViaje) >= 6 && date("N",$ultViaje) <= 22) {
 						$trasbordo = true;
 					}
-					if (end($this->viajes)->fecha_y_hora() - strtotime($ultViaje) < 3600 && date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("N",$ultViaje)<=14) {
+					if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("N",$ultViaje)<=14) {
 						$trasbordo = true;
 					}
 					if ($ultViaje - strtotime($fecha_y_hora) < 5400 && date("G",$ultViaje) >= 22 && date("G",$ultViaje) <= 6){
