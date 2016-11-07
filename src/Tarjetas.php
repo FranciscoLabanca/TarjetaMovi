@@ -28,7 +28,8 @@ class Tarjetas implements Tarjeta{
 			if ($transporte->tipo() == "Colectivo") {
 				$trasbordo = false;
 				if (count($this->viajes) > 0) {
-					$ultViaje = end($this->viajes)->fecha_y_hora();
+					$ultimo = end($this->viajes);
+					$ultViaje = $ultimo->fecha_y_hora();
 					if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) >= 1 && date("N",$ultViaje) <= 5 && date("G",$ultViaje) >= 6 && date("N",$ultViaje) < 22) {
 						$trasbordo = true;
 					}
