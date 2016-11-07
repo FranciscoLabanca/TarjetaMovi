@@ -101,7 +101,8 @@ class TransporteTest extends TestCase {
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
-		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33,2);
+		$boleto = 8.50 + round(8.50 * 0.33,2);
+		$saldo_final = $saldo_inicial - $boleto;
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Sábado después de las 14 hs y antes de las 22 hs
@@ -111,7 +112,7 @@ class TransporteTest extends TestCase {
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
-		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33,2);
+		$saldo_final = $saldo_inicial - $boleto;
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Turno Noche
@@ -121,7 +122,7 @@ class TransporteTest extends TestCase {
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $noche1);
 		$this->tarjeta->pagar($this->colectivo, $noche2);
-		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33,2);
+		$saldo_final = $saldo_inicial - $boleto;
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Domingo después de las 6 hs y antes de las 22 hs
@@ -131,7 +132,7 @@ class TransporteTest extends TestCase {
 		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $domingo1);
 		$this->tarjeta->pagar($this->colectivo, $domingo2);
-		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33,2);
+		$saldo_final = $saldo_inicial - $boleto;
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar (Con medio boleto) -> Colectivo
