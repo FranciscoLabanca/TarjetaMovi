@@ -97,41 +97,41 @@ class TransporteTest extends TestCase {
 		//Test Función Pagar Trasbordo Sábado después de las 6 hs y antes de las 14 hs
 		$sabado1 = "2016/09/03 8:00";
 		$sabado2 = "2016/09/03 8:30";
-		$this->tarjeta->monto = 0;
-		$saldo_inicial = $this->tarjeta->recargar(100);
+		$this->tarjeta->monto = 100;
+		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
-		$saldo_final = $saldo_inicial - 8.50 - 2.31;
+		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Turno Noche
 		$noche1 = "2016/11/01 23:00";
 		$noche2 = "2016/11/02 0:20";
-		$this->tarjeta->monto = 0;
-		$saldo_inicial = $this->tarjeta->recargar(100);
+		$this->tarjeta->monto = 100;
+		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $noche1);
 		$this->tarjeta->pagar($this->colectivo, $noche2);
-		$saldo_final = $saldo_inicial - 8.50 - 2.31;
+		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Sábado después de las 14 hs y antes de las 22 hs
 		$sabado1 = "2016/09/03 15:00";
 		$sabado2 = "2016/09/03 16:10";
-		$this->tarjeta->monto = 0;
-		$saldo_inicial = $this->tarjeta->recargar(100);
+		$this->tarjeta->monto = 100;
+		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $sabado1);
 		$this->tarjeta->pagar($this->colectivo, $sabado2);
-		$saldo_final = $saldo_inicial - 8.50 - 2.31;
+		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 		//Test Función Pagar Trasbordo Domingo después de las 6 hs y antes de las 22 hs
 		$domingo1 = "2016/09/04 15:00";
 		$domingo2 = "2016/09/04 16:10";
-		$this->tarjeta->monto = 0;
-		$saldo_inicial = $this->tarjeta->recargar(100);
+		$this->tarjeta->monto = 100;
+		$saldo_inicial = $this->tarjeta->saldo();
 		$this->tarjeta->pagar($trasbordo, $domingo1);
 		$this->tarjeta->pagar($this->colectivo, $domingo2);
-		$saldo_final = $saldo_inicial - 8.50 - 2.31;
+		$saldo_final = $saldo_inicial - 8.50 - round(8.50 * 0.33);
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
 
