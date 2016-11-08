@@ -131,8 +131,8 @@ class TransporteTest extends TestCase {
 		$this->assertEquals($saldo_final, $this->tarjeta2->saldo());
 
 		//Test Función Pagar Trasbordo Domingo después de las 6 hs y antes de las 22 hs
-		$domingo1 = "2016/10/06 15:00";
-		$domingo2 = "2016/10/06 16:10";
+		$domingo1 = "2016/10/09 15:00";
+		$domingo2 = "2016/10/09 16:10";
 		$saldo_inicial = $this->tarjeta2->saldo();
 		$this->tarjeta2->pagar($trasbordo, $domingo1);
 		$this->tarjeta2->pagar($this->colectivo, $domingo2);
@@ -159,7 +159,7 @@ class TransporteTest extends TestCase {
 
 		//Test Función Primer Pasaje Plus
 		$bondi1 = new Colectivo("131 Único", "Semtur");
-		$fecha1 = "2016/10/04 10:00";
+		$fecha1 = "2016/11/04 10:00";
 		$this->tarjeta->monto = 7;
 		$this->tarjeta->pagar($bondi1, $fecha1);
 		$plus = 1;
@@ -167,7 +167,7 @@ class TransporteTest extends TestCase {
 
 		//Test Función 2do Pasaje Plus
 		$bondi2 = new Colectivo("132 Único", "Semtur");
-		$fecha2 = "2016/10/04 12:00";
+		$fecha2 = "2016/11/04 12:00";
 		$this->tarjeta->monto = 0;
 		$this->tarjeta->pagar($bondi2, $fecha2);
 		$plus = 2;
@@ -175,7 +175,7 @@ class TransporteTest extends TestCase {
 
 		//Test Función 2do Pasaje Plus y sin saldo para pagarlos
 		$bondi3 = new Colectivo("115 Único", "Semtur");
-		$fecha3 = "2016/10/04 14:00";
+		$fecha3 = "2016/11/04 14:00";
 		$this->tarjeta->monto = 0;
 		$retorno = $this->tarjeta->pagar($bondi3, $fecha3);
 		$this->assertEquals("Saldo insuficiente", $retorno);

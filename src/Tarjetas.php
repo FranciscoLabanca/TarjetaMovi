@@ -39,7 +39,7 @@ class Tarjetas implements Tarjeta{
 						}
 					}
 					if ($ultViaje - strtotime($fecha_y_hora) < 5400){
-						if (date("G",$ultViaje) >= 22 && date("G",$ultViaje) < 6){
+						if (date("G",$ultViaje) >= 22 || date("G",$ultViaje) < 6){
 							$trasbordo = true;
 						}
 						else if(date("N", $ultViaje) == 6 && date("G", $ultViaje) >= 14 && date("G", $ultViaje) < 22){
