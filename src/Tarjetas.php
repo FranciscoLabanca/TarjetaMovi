@@ -30,20 +30,24 @@ class Tarjetas implements Tarjeta{
 				if (count($this->viajes) > 0) {
 					$ultimo = end($this->viajes);
 					$ultViaje = $ultimo->fecha_y_hora();
-					if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) >= 1 && date("N",$ultViaje) <= 5 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
-						$trasbordo = true;
+					if ($ultViaje - strtotime($fecha_y_hora) < 3600) {
+						if(date("N",$ultViaje) >= 1 && date("N",$ultViaje) <= 5 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
+							$trasbordo = true;
+						}
+						else if (date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 14) {
+							$trasbordo = true;
+						}
 					}
-					if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 14) {
-						$trasbordo = true;
-					}
-					if ($ultViaje - strtotime($fecha_y_hora) < 5400 && date("G",$ultViaje) >= 22 && date("G",$ultViaje) < 6){
-						$trasbordo = true;
-					}
-					if ($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 6 && date("G", $ultViaje) >= 14 && date("G", $ultViaje) < 22){
-						$trasbordo = true;
-					}
-					if($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 7 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22){
-						$trasbordo = true;
+					else if ($ultViaje - strtotime($fecha_y_hora) < 5400){
+						if (date("G",$ultViaje) >= 22 && date("G",$ultViaje) < 6){
+							$trasbordo = true;
+						}
+						else if(date("N", $ultViaje) == 6 && date("G", $ultViaje) >= 14 && date("G", $ultViaje) < 22){
+							$trasbordo = true;
+						}
+						else if(date("N", $ultViaje) == 7 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22){
+							$trasbordo = true;
+						}
 					}
 				}
 				$monto = 0;
