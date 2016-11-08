@@ -38,7 +38,7 @@ class Tarjetas implements Tarjeta{
 							$trasbordo = true;
 						}
 					}
-					else if ($ultViaje - strtotime($fecha_y_hora) < 5400){
+					if ($ultViaje - strtotime($fecha_y_hora) < 5400){
 						if (date("G",$ultViaje) >= 22 && date("G",$ultViaje) < 6){
 							$trasbordo = true;
 						}
