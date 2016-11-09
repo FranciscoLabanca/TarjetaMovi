@@ -28,7 +28,7 @@ class Tarjetas implements Tarjeta{
 				$trasbordo = false;
 				if (count($this->viajes) > 0) {
 					$ultimo = end($this->viajes);
-					$ultViaje = strtotime($ultimo->fecha_y_hora());
+					$ultViaje = $ultimo->fecha_y_hora();
 					//Si el dia no es sabado ni domingo y la hora esta entre 6 y 22
 					if($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) < 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
 						$trasbordo = true;
@@ -65,7 +65,6 @@ class Tarjetas implements Tarjeta{
 					$this->plus = 0;
 					$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
 					$this->monto -= $monto;
-					$trasbordo = false;
 				}
 			} 
 			else if ($transporte->tipo() == "Bicicleta") {
