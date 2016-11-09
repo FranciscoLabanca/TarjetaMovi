@@ -2,12 +2,16 @@
 namespace TarjetaMovi;
 
 class Tarjetas implements Tarjeta{
-	public $monto, $viajes = [], $descuento, $plus = 0, $valor_boleto = 8.50, $valor_bici = 12, $id;
+	public $monto, $viajes = [], $descuento, $plus, $valor_boleto, $valor_bici, $id, $trasbordo;
 
 	function __construct ($id){
 		$this->monto = 0;
 		$this->descuento = 1;
 		$this->id = $id;
+		$this->valor_boleto = 8.50;
+		$this->plus = 0;
+		$this->valor_bici = 12;
+		$this->trasbordo = false;
 	}
 	public function pagar(Transporte $transporte, $fecha_y_hora){
 		if($this->monto < $this->valor_boleto && $this->plus < 2){
@@ -25,36 +29,36 @@ class Tarjetas implements Tarjeta{
 		}
 		else{
 			if ($transporte->tipo() == "Colectivo") {
-				$trasbordo = false;
+				$this->trasbordo = false;
 				if (count($this->viajes) > 0) {
 					$ultimo = end($this->viajes);
 					$ultViaje = $ultimo->fecha_y_hora();
 					//Si el dia no es sabado ni domingo y la hora esta entre 6 y 22
 					if($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) < 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
-						$trasbordo = true;
+						$this->trasbordo = true;
 					}
 					//Si el dia es sabado y la hora esta entre 6 y 14
 					else if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 14) {
-						$trasbordo = true;
+						$this->trasbordo = true;
 					}
 					//Si la hora es mayor a 22 o menor a 6
 					else if ($ultViaje - strtotime($fecha_y_hora) < 5400 && date("G",$ultViaje) >= 22 || date("G",$ultViaje) < 6){
-						$trasbordo = true;
+						$this->trasbordo = true;
 					}
 					//Si es sabado y la hora es mayor a 14 y menor a 22
 					else if($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 6 && date("G", $ultViaje) >= 14 && date("G", $ultViaje) < 22){
-						$trasbordo = true;
+						$this->trasbordo = true;
 					}
 					//Si es domingo entre las 6 y las 22 horas
 					else if($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 7 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22){
-						$trasbordo = true;
+						$this->trasbordo = true;
 					}
 					else{
-						$trasbordo = false;
+						$this->trasbordo = false;
 					}
 				}
 				$monto = 0;
-				if (!$trasbordo) {
+				if (!$this->trasbordo) {
 					$monto = $this->valor_boleto * $this->descuento + $this->valor_boleto * $this->plus;
 					$this->plus = 0;
 					$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
