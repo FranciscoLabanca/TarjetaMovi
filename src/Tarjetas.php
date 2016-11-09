@@ -12,8 +12,7 @@ class Tarjetas implements Tarjeta{
 	public function pagar(Transporte $transporte, $fecha_y_hora){
 		if($this->monto < $this->valor_boleto && $this->plus < 2){
 			$this->plus++;
-			//$monto [0] = $this->monto;
-			//$this->viajes[] = new Viaje($transporte->tipo(), $monto[0], $transporte, strtotime($fecha_y_hora));
+			//$this->viajes[] = new Viaje($transporte->tipo(), $this->monto, $transporte, strtotime($fecha_y_hora));
 			if($this->plus == 1){
 				$boleto = new Boleto ($fecha_y_hora, "Plus", $this->monto, $transporte->nombre, $this->id);
 			}
@@ -30,14 +29,6 @@ class Tarjetas implements Tarjeta{
 				if (count($this->viajes) > 0) {
 					$ultimo = end($this->viajes);
 					$ultViaje = $ultimo->fecha_y_hora();
-					if ($ultViaje - strtotime($fecha_y_hora) < 3600) {
-						if(date("N",$ultViaje) >= 1 && date("N",$ultViaje) <= 5 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
-							$trasbordo = true;
-						}
-						else if (date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 14) {
-							$trasbordo = true;
-						}
-					}
 					if ($ultViaje - strtotime($fecha_y_hora) < 5400){
 						if (date("G",$ultViaje) >= 22 || date("G",$ultViaje) < 6){
 							$trasbordo = true;
@@ -49,6 +40,14 @@ class Tarjetas implements Tarjeta{
 							$trasbordo = true;
 						}
 					}
+					if ($ultViaje - strtotime($fecha_y_hora) < 3600) {
+						if(date("N",$ultViaje) >= 1 && date("N",$ultViaje) <= 5 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
+							$trasbordo = true;
+						}
+						else if (date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 14) {
+							$trasbordo = true;
+						}
+					}
 				}
 				$monto = 0;
 				if ($trasbordo) {
@@ -56,6 +55,7 @@ class Tarjetas implements Tarjeta{
 					$this->plus = 0;
 					$this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
 					$this->monto -= $monto;
+					$trasbordo = false;
 				}
 				else {
 					$monto = $this->valor_boleto * $this->descuento + $this->valor_boleto * $this->plus;
