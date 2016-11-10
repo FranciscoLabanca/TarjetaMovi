@@ -29,25 +29,24 @@ class Tarjetas implements Tarjeta{
 				if (count($this->viajes) > 0) {
 					$ultimo = end($this->viajes);
 					$ultViaje = $ultimo->fecha_y_hora();
-					//Si el dia no es sabado ni domingo y la hora esta entre 6 y 22
-					if($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) < 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22) {
-						$trasbordo = true;
+					$dia = date("N", $ultViaje);
+					$hora = date("G", $ultViaje);
+					//Trasbordo Lunes a Viernes
+					if($dia < 6 && $hora >= 6 && $hora < 22){
+						if(strtotime($fecha_y_hora) - $ultViaje < 3600){
+							$trasbordo = true;
+						}
 					}
-					//Si el dia es sabado y la hora esta entre 6 y 14
-					else if ($ultViaje - strtotime($fecha_y_hora) < 3600 && date("N",$ultViaje) == 6 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 14) {
-						$trasbordo = true;
+					//Trasbordo Sábados
+					else if($dia == 6 && $hora >= 6 && $hora < 14){
+						if(strtotime($fecha_y_hora) - $ultViaje < 3600){
+							$trasbordo = true;
+						}	
 					}
-					//Si la hora es mayor a 22 o menor a 6
-					else if ($ultViaje - strtotime($fecha_y_hora) < 5400 && (date("G",$ultViaje) >= 22 || date("G",$ultViaje) < 6)){
-						$trasbordo = true;
-					}
-					//Si es sabado y la hora es mayor a 14 y menor a 22
-					else if($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 6 && date("G", $ultViaje) >= 14 && date("G", $ultViaje) < 22){
-						$trasbordo = true;
-					}
-					//Si es domingo entre las 6 y las 22 horas
-					else if($ultViaje - strtotime($fecha_y_hora) < 5400 && date("N", $ultViaje) == 7 && date("G",$ultViaje) >= 6 && date("G",$ultViaje) < 22){
-						$trasbordo = true;
+					else{
+						if(strtotime($fecha_y_hora) - $ultViaje < 5400){
+							$trasbordo = true;
+						}
 					}
 				}
 				$monto = 0;
