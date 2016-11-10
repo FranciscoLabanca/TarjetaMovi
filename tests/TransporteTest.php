@@ -101,6 +101,26 @@ class TransporteTest extends TestCase {
 		$saldo_final = $saldo_inicial - 8.50;
 		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
 
+		//Test Función Pagar Trasbordo Sábados de 6 a 14 hs
+		$saldo_inicial = $this->tarjeta->saldo();
+		$sabado1 = "2016/11/05 8:00";
+		$sabado2 = "2016/11/05 8:40";
+		$this->tarjeta->pagar($this->colectivo, $sabado1);
+		$this->tarjeta->pagar($trasbordo, $sabado2);
+		$boleto = $this->tarjeta->valor_boleto + round($this->tarjeta->valor_boleto * 0.33, 2);
+		$saldo_final = $saldo_inicial - $boleto;
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
+
+		//Test Función Pagar Trasbordo Domingo
+		$saldo_inicial = $this->tarjeta->saldo();
+		$domingo1 = "2016/11/06 8:00";
+		$domingo2 = "2016/11/06 9:10";
+		$this->tarjeta->pagar($this->colectivo, $domingo1);
+		$this->tarjeta->pagar($trasbordo, $domingo2);
+		$boleto = $this->tarjeta->valor_boleto + round($this->tarjeta->valor_boleto * 0.33, 2);
+		$saldo_final = $saldo_inicial - $boleto;
+		$this->assertEquals($saldo_final, $this->tarjeta->saldo());
+
 		//Test Función Pagar (Con pase libre) -> Colectivo
 		$saldo_inicial = $this->paseLibre->saldo();
 		$this->paseLibre->pagar($this->colectivo, "2016/09/13 15:50");
